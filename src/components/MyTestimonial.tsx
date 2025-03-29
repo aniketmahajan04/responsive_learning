@@ -24,7 +24,7 @@ export const MyTestimonial = () => {
     useEffect(() => {
         timeOutRef.current = setTimeout(() => {
             setCurrentTestimonial((currentTestimonial) => currentTestimonial === testimonials.length - 1 ? 0 : currentTestimonial + 1);
-        }, 2500)
+        }, 1500)
 
         return () => {
             if(timeOutRef.current){
@@ -37,9 +37,17 @@ export const MyTestimonial = () => {
         if(timeOutRef.current) clearTimeout(timeOutRef.current);
     }
 
+    function resumeAutoSliding() {
+        timeOutRef.current = setTimeout(() => {
+            setCurrentTestimonial((currentTestimonial) => currentTestimonial === testimonials.length - 1 ? 0 : currentTestimonial + 1)
+        }, 1500)
+    }
+
+
     return (
        <div className="mx-auto flex flex-col bg-blue-900 p-6 max-w-md gap-4 rounded-md transition-opacity duration-500"
-        onMouseEnter={pauseAutoSliding}>
+        onMouseEnter={pauseAutoSliding}
+        onMouseLeave={resumeAutoSliding}>
             <p className="text-center text-white text-lg">{testimonials[currentTestimonial].text}</p>
             <h3 className="text-center font-bold text-white">{testimonials[currentTestimonial].name}</h3>
             <div className=" flex justify-between mt-6">
